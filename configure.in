@@ -1,0 +1,47 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(eiwic.c)
+
+PACKAGE=`cat eiwic.h | grep "#define NAME" | cut -d "\"" -f2`
+VERSION=`cat eiwic.h | grep "#define VERSION" | cut -d "\"" -f2`
+
+AC_SUBST(PACKAGE)
+AC_SUBST(VERSION)
+
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+
+AC_ARG_ENABLE(ipv6,
+	[  --enable-ipv6		enable IPv6 support [default: off]],
+	AC_DEFINE(IPV6))
+AC_ARG_ENABLE(vv-debug,
+	[  --enable-vv-debug	enable verbose debug messages [default: off]],
+	AC_DEFINE(VV_DEBUG))
+
+dnl Checks for programs.
+AC_PROG_CC
+
+dnl Checks for libraries.
+AC_CHECK_LIB(dl, dlopen)
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(fcntl.h sys/ioctl.h unistd.h arpa/inet.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_HEADER_TIME
+
+dnl Checks for library functions.
+AC_TYPE_SIGNAL
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(select socket strcasecmp strncasecmp strerror strstr strtod bzero dup2 gethostbyname inet_ntoa memmove memset fork malloc)
+
+AC_CHECK_LIB(raptor, raptor_init, [rm -f modules/rssfeed.skip], [
+echo 'Note: libraptor has not been found, required by "rssfeed" module. "rssfeed" is disabled.'
+echo '      If you want to have the module, please install the raptor library and re-configure.'
+echo '      Otherwise proceed...';
+echo 
+touch modules/rssfeed.skip
+], "-lxml2")
+
+AC_OUTPUT(modules/Makefile Makefile)

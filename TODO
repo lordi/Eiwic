@@ -1,0 +1,6 @@
+* log(LOG_STATUS, "Uptime: ...") when eiwic quits
+* modules/stream.c: filter < & >
+* modules/stream.c: filter mirc color codes
+* modules/stream.c: filter \02 -> <b> and </b>
+* modules/stream.c: morph (http://|www.)[^\ ] to links
+* eiwic: add some kind of asyncronous DNS lib

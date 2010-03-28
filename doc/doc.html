@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>Eiwic help file</title>
+</head>
+<body>
+<h1>A quick'n dirty help file</h1>
+<img src="eiwic.png">
+<br>
+<font size=+2><u>If eiwic is online, try !help.</u></font>
+<br>
+<br>
+
+<h3>Compiling eiwic</h3>
+<p>
+Ehrm...
+<pre>
+./configure
+make
+</pre>
+</p>
+
+<h3>Configuring eiwic</h3>
+<p>
+Edit the .conf file.
+</p>
+
+<h3>Running eiwic</h3>
+<p>
+See <code>./eiwic -h</code> please.
+</p>
+
+<h3>Debugging eiwic</h3>
+<p>
+<pre>
+./configure --enable-vv-debug
+make clean
+make
+./eiwic -l - -v 10 debug.conf
+</pre>
+<br>
+<br>
+to debug modules you can use the -t switch: e.g. -t '!dict sleep'
+</p>
+
+<h3>Own modules</h3>
+<p>
+Every single .c file which is in modules/ will be compiled to as .so library. Every .so library in the
+modules/ directory can be loaded as a module. If you want to write your own module, copy "template.c"
+to "yourmodule.c" and modify it. To compile it, just type "make" in the eiwic directory.<br>
+<br>
+<code>EP_SETNAME()</code> is a macro which sets the module name. The parameter should be the same as the
+file name. This must exist in the module source file.<br><br>
+<code>int ep_init(OUTPUT *out)</code> is the init function. It doesn't have to exist. If it does exist, however,
+you must return 1 in case of successful initialization, and 0 if it failed (it will be unloaded then). Print out status
+or error messages to <code>out</code> (see <i>Module API</i>). Most likely you will register your trigger here.<br><br>
+<code>int ep_parse(MSG *msg)</code> is a function that will be called after a line from the server
+has been parsed. In the MSG struct you can find the Message from the IRC server parsed (see <i>Eiwic structs</i>).
+Also see modules/ctcp.c where <code>ep_parse</code> is used.<br><br>
+<code>int ep_trigger(char *param, OUTPUT *out, MSG *msg)</code> will be called whenever a trigger is called. You
+won't normally need this.<br><br>
+<code>int ep_help(OUTPUT *out)</code> is the help function to give the user some help. If the "info" module is 
+loaded, users can read your help output with <code>!help yourmodule</code> or <code>!help !oneofyourtriggers</code>.
+Write your help text to <code>out</code>.<br><br>
+</p>
+
+<h3>Module API</h3>
+<p>
+Okay, your module can start functions from Eiwic's module API by using the global <code>eiwic</code> structure (which is
+the same as the <code>mlink</code> struct), which holds the function pointers to the functions. I will not speak
+about every function here, just the most important:<br><br>
+
+<code>plug_trigger_reg(char *call, u_int kind, e_trigger_f callback)</code>
+
+- registers a trigger to Eiwic. call is the trigger string itsself. kind is TRIG_PUBLIC for public triggers and
+TRIG_ADMIN for trigger that are only accessible by the admin. callback is a callback function, which must look like
+this: <code>int callback(char *parameter, OUTPUT *out, MSG *ircmsg)</code>. Send output to <code>out</code> and
+return 1, please.<br>
+Example: <code>	eiwic->plug_trigger_reg("!conv", TRIG_PUBLIC, convert);</code><br>
+<br>
+
+<code>output_printf(OUTPUT *out, char *fmt, ...)</code>
+
+- outputs something to <code>out</code>.<br>
+Example: <code>eiwic->output_printf(out, "Sorry, no help available for '%s'.\n", param);</code><br>
+<br>
+
+<code>conn_http_get(char *url, e_conn_http_f callback, void *data)</code>
+
+- gets a page from a http server. <code>data</code> is user-defined data which will also be passed to the callback.
+<br>Example: please see modules/google.c or modules/conv.c<br>
+<br>
+Yea, well. Thats about it. You will figure out the rest by yourself :)<br>
+<br>
+plug_sendf - send text to the server<br>
+plug_timer_reg - register a timer<br>
+conn_connect - create a socket and connect to somewhere<br>
+conn_listen - create a socket and listen on a port (see modules/stream.c)<br>
+log - write things to the log file<br>
+set_get_string, set_get_int, ... - get eiwic settings<br>
+....<br>
+<br>
+</p>
+
+<h3>Eiwic structs</h3>
+<p>
+see <code>eiwic.h</code> please.
+</p>
+
+<h3>Module information</h3>
+<p>
+TODO<br>
+<br>
+Well, to get information about a module, try <code>!help</code>, <code>!help !triggername</code>
+or <code>!help module</code>.
+<br>
+</p>
+<h3>Contact</h3>
+<p>
+You can contact me here: <a href=http://lordi.styleliga.org/eiwic/>Homepage of eiwic</a>.
+<br>
+</p>
+</body>
+</html>

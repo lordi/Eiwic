@@ -1,0 +1,152 @@
+Eiwic 1.1.0                                                         
+-------------------------------------------------------------------------------
+  ___ _        _                                                               
+ | __(_)_ __ _(_)__                           mail__________lordi@styleliga.org
+ | _|| \ V  V / / _|                           www___http://lordi.styleliga.org
+ |___|_|\_/\_/|_\__|                           irc_________________lordi@IRCnet
+                                                                               
+																   
+ Eiwic is released under the GPL, for more info please read the file COPYING.
+
+
+Short installation guide
+-------------------------------------------------------------------------------
+
+        - Ungzip & untar the eiwic-1.1.x.tar.gz file
+		
+        - Edit Makefile (If your system does not support IPv6 etc.)
+	
+        - Run 'gmake' (or 'make' if gmake does not work)
+		
+        - Edit 'sample.conf' to fit your needs and save it as 'bot.conf'
+		
+        - Optional: Run "./eiwic bot.conf -l - -v 10" to probe if the bot is
+          running correctly with your bot.conf. If it doesn't give you errors
+          or warnings and joins the channels you set, your configuration is
+          alright and you can kill the bot again through SIGINT (Ctrl-C).
+
+        - To run the bot in the background finally, you may launch it with
+          "./eiwic bot.conf -d" or, additionally, with "-l eiwic.log -v X" if
+          you want a logfile (X is the verbosity level, set it to 10 for a
+          verbose debug logfile, or to 2 for a normal (smaller) logfile.
+
+-------------------------------------------------------------------------------
+		   
+Send bugs to lordi@styleliga.org with a description and, if necessary, the part
+of the logfile.
+
+Thanks go out to alpha_5 for running Eiwic on his server so many bugs have been
+found, to Youk for making it run on OpenBSD and to Elaminato for testing Eiwic
+with Cygwin :)
+
+
+Changelog
+-------------------------------------------------------------------------------
+
+1.1.3 - jun 29th 2005
+		* Added RSS newsfeed module (rssfeed.c) (libraptor required)
+        * You can now create a modules/*.buildflags file where additional
+          flags for the specific module can be written down
+		* You can now create a modules/*.skip file to skip a module during
+          compilation
+        * -t flag can now take multiple trigger lines, seperated by semicolon
+		* output_tostring() to get the output destination (channel, query, ...)
+
+1.1.2 - ....
+
+1.1.1 - oct 27th 2004
+		* fixed a bug with output routing
+		* added more functions to admin.so
+		* added !decide module
+		* added experimental !getnick module - dont use it ;)
+		* added a crash/debug module
+
+1.1.0 - oct 15th 2004
+		* added output routing:
+		  every trigger, ep_main, ep_help function doesn't have to
+		  send its output now directly to the server. it just sends
+		  its output to an OUTPUT object, which will then be routed
+		  to a channel, and then to the server, for example
+		* changed module API because of the output routing
+		* in the msvc/ directory is now a MSVC studio workspace (not
+		  for compiling, just editing)
+		* thrown out some modules... fixed all other modules to match the 
+		  new module API
+		* introduced ep_help callback for the modules
+		* changed !help trigger from the info module. it can now be used
+		  to read what the ep_help trigger returns from every module.
+		* triggers can now be used in private /msgs to the bot
+		* triggers can now be tested with the -t cmdline parameter
+    
+1.0.14 - oct 10th 2004
+		the last version(s) hasn't been documented.
+		
+		* support for admin_mask and admin-only triggers added
+		* added modadmin module for runtime-module-managment
+		* fixed "dict":
+		   - now using pda.leo.org
+		   - added !dico for french - german translation
+		   - had to update html parsing
+		   - support for <b>-tag
+		* added some testing modules (don't pay attention to them)
+		* + more fixes
+
+1.0.12  pre1:
+          ./configure script included (thanks to Youk)
+		pre2:
+		  "stream" module introduced, streams your channel through browser
+		  "rot13" module added, introducing !rot13 ;)
+	      code clean-ups
+		pre3:
+		  modules/Makefile fixed for some systems (thanks to Youk)
+		  struct timeval fix for some system (required sys/time.h)
+          added "USERNAME" setting in the config file
+		pre4:
+		  added "stats" module, monitoring all triggers and saves statistics
+		  added ep_trigger call back function, is always called when any
+		  	trigger is triggered
+		  "stream" module updates
+		pre5:
+		  added "users.[c|h]" and basic user_* functions
+		  added "getop" module, which will be replaced with some real
+		    user/rights management etc. (doesn't work however ;),
+			dont use it)
+		  fixed !dict module (layout change on dict.leo.org)
+		pre6:
+		  added CSS style support for HTTP livestream (stream)
+1.0.11	module code updated again
+        Makefile re-written
+1.0.10  removed 'ping' module / added 'conv' (EUR->USD) conversion
+        added 'heise' module that automatically puts new heise news into your
+        channel
+		added a function that pings the server after a specific intervall so
+        that eiwic is able to discover when the connection got lost
+        updated module code (will not link functions anymore)
+1.0.9	minor bug fixes
+        will now run on OpenBSD (OpenBSD does not support modules loading in a
+		way linux does, so it might cause problems)
+1.0.8	fixed bc bug ;)
+        added "settings" structure/set code rewritten
+        module code cleanups
+        added cyborg module
+        added HTTPS proxy support
+        fixed ld open issue
+1.0.7   Makefile updated
+        add bc/calc module		
+ALPHA6: minor bug fixes
+        added !find (google module)
+        added ipv6 and debug switches to Makefile
+ALPHA5: major bug fixes
+        cleaned up modules
+		added !up ;)
+ALPHA4: vhost support
+        vvd_section
+ALPHA3: daemon mode
+        ctcp module updated: ping
+        ipv6
+        multiple server
+        multiple channels
+ALPHA2: introducing new log system with several
+        verbosity-level and module-dependent logging
+
+-------------------------------------------------------------------------------
