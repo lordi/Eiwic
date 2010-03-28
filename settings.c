@@ -83,11 +83,12 @@ int	conf_loadfile()
 int conf_set(char *parameter, char *value)
 {
 	SETTING *s;
-	
 	if ((s = set_find(parameter)) == NULL)
 	{	/* can only set existing settings */
-		log(LOG_ERROR, "No such configuration symbol: %s", parameter);
-		return -1;
+		log(LOG_WARNING, "No such configuration symbol: %s", parameter);
+		log(LOG_WARNING, "Assuming that %s is a setting of type STRING",parameter);
+		set_add(SET_STRING, parameter, "");
+		s = set_find(parameter);
 	}
 
 	switch (s->type)

@@ -1,6 +1,6 @@
 /******************************************************************************
  * eiwic - Extensible Ircbot Written In C
- * Copyright (C) Hannes Gr�uler <lordi@styleliga.org>
+ * Copyright (C) Hannes Graeuler <lordi@styleliga.org>
  *
  * eiwic.h: Main header file.
  ****************************************************************************/
@@ -20,10 +20,10 @@ typedef unsigned char *STRING;
 #define NAME     "eiwic"
 #endif
 #ifndef VERSION
-#define VERSION  "1.1.3"
+#define VERSION  "1.1.4"
 #endif
-#define AUTHOR   "Hannes Gr�uler <lordi@styleliga.org>"
-#define EIWIC_HOMEPAGE "http://lordi.styleliga.org/eiwic/"
+#define AUTHOR   "Hannes Graeuler <lordi@styleliga.org>"
+#define EIWIC_HOMEPAGE "http://lordi.styleliga.org/Eiwic"
 
 #define MSG      struct eiwic_ircmsg
 #define PLUGIN   struct eiwic_plugin

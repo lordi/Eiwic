@@ -13,7 +13,13 @@
  *    - had to update html parsing
  *    - support for <b>-tag
  *
+ * update: mar 28th 2010 | florian90@gmail.com
+ *    - renamed !dico to !dict_fr and !dict to !dict_en
+ *    - added !dict_es for spanish - german translation
+ *    - added !dict_ch for chinese - german translation
+ *
  * by lordi@styleliga.org | http://lordi.styleliga.org/ 2002
+ * extensions by florian90@gmail.com / 2010
  *
  */
 #include <stdio.h>
@@ -33,6 +39,8 @@ EP_SETNAME("dict");
 
 #define DICTEN_CODE "ende"
 #define DICTFR_CODE "frde"
+#define DICTES_CODE "esde"
+#define DICTCH_CODE "chde"
 
 #define DICT_MAX_TRANSLATIONS 5
 
@@ -40,8 +48,10 @@ EP_SETNAME("dict");
 #define HTMLANC_FIRST "<td class=\"td1\" valign=\"middle\" width=\"4"
 #define HTMLANC_SECOND HTMLANC_FIRST
 
-#define USAGE "usage: !dict <english or german word>\n" \
-              "       !dico <french or german word>\n"
+#define USAGE "usage: !dict_en <english or german word>\n" \
+              "       !dict_fr <french or german word>\n" \
+	      "       !dict_es <spanish or german word>\n" \
+	      "       !dict_ch <chinese or german word>\n"
 
 typedef struct dictionary_request {
 	OUTPUT *out;
@@ -201,11 +211,19 @@ int dict_fr(char *parameter, OUTPUT *out, MSG *msg)
 {
 	return dict(parameter, DICTFR_CODE, out);
 }
-
+int dict_es(char* parameter, OUTPUT *out, MSG *msg)
+{
+	return dict(parameter,DICTES_CODE,out);
+}
+int dict_ch(char* parameter, OUTPUT *out, MSG *msg)
+{
+	return dict(parameter,DICTCH_CODE,out);
+}
 int ep_main(OUTPUT *out)
 {
-	mlink->plug_trigger_reg("!dict", TRIG_PUBLIC, dict_en);
-	mlink->plug_trigger_reg("!dico", TRIG_PUBLIC, dict_fr);
-	
+	mlink->plug_trigger_reg("!dict_en", TRIG_PUBLIC, dict_en);
+	mlink->plug_trigger_reg("!dict_fr", TRIG_PUBLIC, dict_fr);
+	mlink->plug_trigger_reg("!dict_es", TRIG_PUBLIC, dict_es);
+	mlink->plug_trigger_reg("!dict_ch",TRIG_PUBLIC, dict_ch);
 	return 1;
 }
