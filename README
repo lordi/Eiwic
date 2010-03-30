@@ -1,22 +1,22 @@
-Eiwic 1.1.4                                                         
+Eiwic 1.1.x
 -------------------------------------------------------------------------------
-  ___ _        _                                                               
+  ___ _        _
  | __(_)_ __ _(_)__                           mail__________lordi@styleliga.org
  | _|| \ V  V / / _|                           www___http://lordi.styleliga.org
  |___|_|\_/\_/|_\__|                           irc_________________lordi@IRCnet
-                                                                               
-                                                                   
+
+
  Eiwic is released under the GPL, for more info please read the file COPYING.
 
 
-Short installation guide
+Quick compilation guide
 -------------------------------------------------------------------------------
 
         - Ungzip & untar the eiwic-1.1.x.tar.gz file
 
-        - Edit Makefile (If your system does not support IPv6 etc.)
+        - Run: ./configure
 
-        - Run 'gmake' (or 'make' if gmake does not work)
+        - Run: make
 
         - Edit 'sample.conf' to fit your needs and save it as 'bot.conf'
 
