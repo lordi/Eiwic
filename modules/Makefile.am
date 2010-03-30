@@ -15,8 +15,8 @@ ADD_BUILD_FLAGS = if [ -e $(patsubst %.so,%.buildflags, $@) ]; then cat $(patsub
 		echo "$@ skipped."; \
 	else :;\
 	if test $(patsubst %.so,%.c, $@) -nt $@ -o ! -e $@; then \
-		echo "@CC@ @CFLAGS@ $(DEFS) $(INCLUDES) `$(ADD_BUILD_FLAGS)` -shared -fPIC $(patsubst %.so,%.c, $@) -o $@"; \
-		@CC@ @CFLAGS@ $(DEFS) $(INCLUDES) `$(ADD_BUILD_FLAGS)`  -shared -fPIC $(patsubst %.so,%.c, $@) -o $@; \
+		echo "@CC@ @CFLAGS@ $(LDFLAGS) $(DEFS) $(INCLUDES) `$(ADD_BUILD_FLAGS)` -shared -fPIC $(patsubst %.so,%.c, $@) -o $@"; \
+		@CC@ @CFLAGS@ $(LDFLAGS) $(DEFS) $(INCLUDES) `$(ADD_BUILD_FLAGS)`  -shared -fPIC $(patsubst %.so,%.c, $@) -o $@; \
 	else :; fi; \
 	fi
 
