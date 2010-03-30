@@ -221,6 +221,7 @@ int dict_ch(char* parameter, OUTPUT *out, MSG *msg)
 }
 int ep_main(OUTPUT *out)
 {
+	mlink->plug_trigger_reg("!dict", TRIG_PUBLIC, dict_en);
 	mlink->plug_trigger_reg("!dict_en", TRIG_PUBLIC, dict_en);
 	mlink->plug_trigger_reg("!dict_fr", TRIG_PUBLIC, dict_fr);
 	mlink->plug_trigger_reg("!dict_es", TRIG_PUBLIC, dict_es);
