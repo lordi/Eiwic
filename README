@@ -16,7 +16,7 @@ Quick compilation guide
 
         - Run: ./configure
 
-        - Run: make
+        - Run: make (use gmake on *BSD)
 
         - Edit 'sample.conf' to fit your needs and save it as 'bot.conf'
 
