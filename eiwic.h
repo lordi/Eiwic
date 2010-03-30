@@ -13,8 +13,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <setjmp.h>
+#include <sys/types.h>
 
-typedef unsigned char *STRING;
+typedef u_char *STRING;
 
 #ifndef NAME
 #define NAME     "eiwic"
